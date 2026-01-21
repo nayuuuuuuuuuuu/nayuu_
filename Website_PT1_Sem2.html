@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTBK!</title>
+
+<style>
+:root {
+    --primary: #a78bfa;
+    --secondary: #fbcfe8;
+    --accent: #6ee7b7;
+    --background: #fdf4ff;
+    --card: #ffffff;
+    --text: #374151;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+}
+
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    background: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+}
+
+nav h1 {
+    color: var(--primary);
+}
+
+nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text);
+}
+
+/* HERO */
+.hero {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #c4b5fd, #fbcfe8);
+    border-radius: 0 0 50px 50px;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    margin-bottom: 2rem;
+}
+
+.hero button {
+    padding: 0.9rem 2rem;
+    border: none;
+    border-radius: 30px;
+    background: var(--accent);
+    cursor: pointer;
+}
+
+/* TIMER */
+.timer {
+    background: white;
+    padding: 2rem;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.time-box {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.time {
+    background: var(--secondary);
+    padding: 1rem;
+    border-radius: 20px;
+}
+
+/* SECTION */
+section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: auto;
+}
+
+section h3 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+}
+
+/* MAPEL */
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+    gap: 1.5rem;
+}
+
+.category {
+    background: white;
+    padding: 1.8rem;
+    border-radius: 25px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.category:hover {
+    transform: translateY(-8px);
+}
+
+/* SOAL */
+.soal-box {
+    display: none;
+    margin-top: 3rem;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.opsi {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.opsi button {
+    padding: 0.9rem;
+    border: none;
+    border-radius: 20px;
+    background: #e9d5ff;
+    cursor: pointer;
+}
+
+.opsi button:hover {
+    background: #c4b5fd;
+}
+
+#hasil {
+    margin-top: 1.2rem;
+    font-weight: bold;
+}
+
+/* FOOTER */
+footer {
+    background: #fbcfe8;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+    nav ul {display:none;}
+    .hero h2 {font-size:2.2rem;}
+    .time-box {grid-template-columns: repeat(2,1fr);}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <h1>UTBK FUN!</h1>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Materi</a></li>
+        <li><a href="#">Try Out</a></li>
+        <li><a href="#">Mentor</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div>
+        <h2>Belajar UTBK Jadi Lebih Seru 🎓</h2>
+        <p>Latihan semua subtes UTBK dengan soal interaktif & countdown UTBK.</p>
+        <button>Mulai Belajar</button>
+    </div>
+
+    <div class="timer">
+        <h3>⏳ UTBK Dimulai Dalam</h3>
+        <div class="time-box">
+            <div class="time"><h2 id="days">0</h2>Hari</div>
+            <div class="time"><h2 id="hours">0</h2>Jam</div>
+            <div class="time"><h2 id="minutes">0</h2>Menit</div>
+            <div class="time"><h2 id="seconds">0</h2>Detik</div>
+        </div>
+    </div>
+</section>
+
+<section>
+<h3>Subtes UTBK</h3>
+
+<div class="categories">
+    <div class="category" onclick="showSoal('pi')">Penalaran Induktif</div>
+    <div class="category" onclick="showSoal('pd')">Penalaran Deduktif</div>
+    <div class="category" onclick="showSoal('pk')">Penalaran Kuantitatif</div>
+    <div class="category" onclick="showSoal('ppu')">Pengetahuan & Pemahaman Umum</div>
+    <div class="category" onclick="showSoal('pbm')">Pemahaman Bacaan & Menulis</div>
+    <div class="category" onclick="showSoal('lbi')">Literasi Bahasa Indonesia</div>
+    <div class="category" onclick="showSoal('lbe')">Literasi Bahasa Inggris</div>
+    <div class="category" onclick="showSoal('pm')">Penalaran Matematika</div>
+</div>
+
+<div id="soal-box" class="soal-box">
+    <h4 id="judul-soal"></h4>
+    <p id="pertanyaan"></p>
+    <div class="opsi" id="opsi"></div>
+    <p id="hasil"></p>
+</div>
+</section>
+
+<footer>
+© 2026 UTBK FUN! • Semua Subtes UTBK Lengkap 🎯
+</footer>
+
+<script>
+// COUNTDOWN UTBK
+const utbkDate = new Date("2026-05-05T08:00:00").getTime();
+setInterval(() => {
+    const now = new Date().getTime();
+    const d = utbkDate - now;
+
+    days.innerHTML = Math.floor(d / (1000*60*60*24));
+    hours.innerHTML = Math.floor((d%(1000*60*60*24))/(1000*60*60));
+    minutes.innerHTML = Math.floor((d%(1000*60*60))/(1000*60));
+    seconds.innerHTML = Math.floor((d%(1000*60))/1000);
+}, 1000);
+
+// DATA SOAL
+const soalData = {
+    pi: {
+        judul: "Penalaran Induktif",
+        soal: "Jika semua burung dapat terbang dan elang adalah burung, maka...",
+        opsi: ["Elang dapat terbang","Elang tidak terbang","Semua yang terbang adalah elang","Tidak dapat disimpulkan"],
+        benar: 0
+    },
+    pd: {
+        judul: "Penalaran Deduktif",
+        soal: "Semua A adalah B. Semua B adalah C. Kesimpulannya...",
+        opsi: ["Semua A adalah C","Semua C adalah A","Sebagian A bukan C","Tidak pasti"],
+        benar: 0
+    },
+    pk: {
+        judul: "Penalaran Kuantitatif",
+        soal: "Jika 5x − 10 = 15, maka x = ...",
+        opsi: ["3","4","5","6"],
+        benar: 1
+    },
+    ppu: {
+        judul: "Pengetahuan & Pemahaman Umum",
+        soal: "Lembaga yang menyelenggarakan UTBK di Indonesia adalah...",
+        opsi: ["Kemendikbud","LTMPT","BPPT","BAN-PT"],
+        benar: 1
+    },
+    pbm: {
+        judul: "Pemahaman Bacaan & Menulis",
+        soal: "Tujuan utama teks eksposisi adalah...",
+        opsi: ["Menghibur","Menceritakan","Menjelaskan informasi","Membujuk"],
+        benar: 2
+    },
+    lbi: {
+        judul: "Literasi Bahasa Indonesia",
+        soal: "Kalimat utama biasanya mengandung...",
+        opsi: ["Detail","Gagasan pokok","Penjelasan","Contoh"],
+        benar: 1
+    },
+    lbe: {
+        judul: "Literasi Bahasa Inggris",
+        soal: "The opposite of the word 'easy' is...",
+        opsi: ["Simple","Hard","Fast","Soft"],
+        benar: 1
+    },
+    pm: {
+        judul: "Penalaran Matematika",
+        soal: "Jika 2² + 3² = x, maka x = ...",
+        opsi: ["10","12","13","14"],
+        benar: 2
+    }
+};
+
+function showSoal(type) {
+    const data = soalData[type];
+    document.getElementById("soal-box").style.display = "block";
+    document.getElementById("judul-soal").innerText = data.judul;
+    document.getElementById("pertanyaan").innerText = data.soal;
+    document.getElementById("hasil").innerText = "";
+
+    const opsiBox = document.getElementById("opsi");
+    opsiBox.innerHTML = "";
+
+    data.opsi.forEach((opsi, index) => {
+        const btn = document.createElement("button");
+        btn.innerText = opsi;
+        btn.onclick = () => cekJawaban(index === data.benar);
+        opsiBox.appendChild(btn);
+    });
+}
+
+function cekJawaban(benar) {
+    const hasil = document.getElementById("hasil");
+    hasil.innerText = benar ? "✅ Jawaban benar! Mantap 🔥" : "❌ Jawaban salah, coba lagi!";
+    hasil.style.color = benar ? "green" : "red";
+}
+</script>
+
+</body>
+</html>
